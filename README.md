@@ -4,6 +4,10 @@ Este proyecto incluye instrucciones para crear manualmente un **tópico** y una 
 
 Se agrego variable en Intellij PUBSUB_EMULATOR_HOST=localhost:8085 para correr.
 
+Comando para ejecutar docker-compose
+```powershell
+docker compose -f dockercompose-pub-subv2.yml up
+```
 ---
 
 ## 1️⃣ Crear el Tópico y la Suscripción (PowerShell)
