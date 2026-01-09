@@ -1,0 +1,33 @@
+version: '3.8'
+services:
+  pubsub-emulator:
+    image: google/cloud-sdk:latest
+    command: gcloud beta emulators pubsub start --host-port=0.0.0.0:8085 --project=test-project
+    ports:
+      - "8085:8085"
+    environment:
+      - PUBSUB_PROJECT_ID=test-project
+    volumes:
+      - ./pubsub-data:/pubsub-data
+    networks:
+      - pubsub-network
+
+  pubsub-init:
+    image: google/cloud-sdk:latest
+    depends_on:
+      - pubsub-emulator
+    environment:
+      - PUBSUB_EMULATOR_HOST=pubsub-emulator:8085
+      - PUBSUB_PROJECT_ID=test-project
+    command: >
+      sh -c "
+        sleep 10 &&
+        gcloud beta pubsub topics create test-topic &&
+        gcloud beta pubsub subscriptions create test-subscription --topic=test-topic
+      "
+    networks:
+      - pubsub-network
+
+networks:
+  pubsub-network:
+    driver: bridge
