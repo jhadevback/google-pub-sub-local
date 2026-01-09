@@ -2,6 +2,8 @@
 
 Este proyecto incluye instrucciones para crear manualmente un **tópico** y una **suscripción** en el emulador local de **Google Pub/Sub**, utilizando **PowerShell** en Windows.
 
+Se agrego variable en Intellij PUBSUB_EMULATOR_HOST=localhost:8085 para correr.
+
 ---
 
 ## 1️⃣ Crear el Tópico y la Suscripción (PowerShell)
