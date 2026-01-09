@@ -43,6 +43,24 @@ Deberías recibir una respuesta similar a:
 }
 ```
 
+Enviar mensaje directo al publisher para probar suscriptor:
+
+```powershell
+# 1. Preparamos el mensaje en Base64
+$message = "Mensaje directo al emulador"
+$base64Text = [Convert]::ToBase64String([System.Text.Encoding]::UTF8.GetBytes($message))
+
+# 2. Creamos el cuerpo JSON
+$body = @{
+    messages = @(
+        @{ data = $base64Text }
+    )
+} | ConvertTo-Json
+
+# 3. Enviamos al emulador
+Invoke-RestMethod -Uri "http://localhost:8085/v1/projects/test-project/topics/test-topic:publish" -Method Post -Body $body -ContentType "application/json"
+```
+
 ---
 
 ## 🧩 Notas
